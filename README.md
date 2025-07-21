@@ -50,7 +50,7 @@ Projeto de sistema embarcado que integra múltiplos periféricos para criar uma 
 
 ## 📝 Diagrama Esquemático
 
-![Diagrama Esquemático](/path/to/Diagrama_Esquematico.pdf)
+![Diagrama Esquemático](/Diagrama_Esquematico.pdf)
 
 ---
 
