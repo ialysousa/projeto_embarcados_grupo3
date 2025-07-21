@@ -48,6 +48,12 @@ Projeto de sistema embarcado que integra múltiplos periféricos para criar uma 
 
 ---
 
+## 📝 Diagrama Esquemático
+
+![Diagrama Esquemático](/path/to/Diagrama_Esquematico.pdf)
+
+---
+
 ## 🛠️ Layout de Montagem (Protoboard)
 
 ![Layout Físico](/path/to/layout_fisico.png)
