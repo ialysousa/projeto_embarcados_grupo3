@@ -7,10 +7,11 @@ Projeto desenvolvido por:
 - **Eduardo Nogueira**  
 - **Wesley Wilson**
 
-Curso de Engenharia de Computação – 2025.1
-Instituto Federal da Paraíba (IFPB)
-Disciplina: Sistemas Embarcados
+Curso de Engenharia de Computação – 2025.1  
+Instituto Federal da Paraíba (IFPB)  
+Disciplina: Sistemas Embarcados  
 Professor: Alexandre Vasconcelos
+
 ---
 # 🎮 Jogo Interativo com ESP32, Acelerômetro, OLED e SD Card
 
