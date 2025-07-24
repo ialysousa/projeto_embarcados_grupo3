@@ -46,7 +46,7 @@ Projeto de sistema embarcado que integra múltiplos periféricos para criar uma 
 
 ## 📐 Diagrama de Blocos
 
-![Diagrama de Blocos](/path/to/bloco_diagram.png)
+![Diagrama de Blocos](/Diagrama_de_Blocos.pdf)
 
 ---
 
