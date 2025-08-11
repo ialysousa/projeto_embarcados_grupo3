@@ -1,0 +1,3 @@
+dependencies:
+  espressif/ssd1306: "^1.0.5"
+  espressif/mpu6050: "^1.0.0"
