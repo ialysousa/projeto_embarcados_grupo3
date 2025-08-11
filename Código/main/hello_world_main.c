@@ -57,7 +57,7 @@ static void i2c_master_init(void)
 
 static void i2c_scan(void)
 {
-    ESP_LOGI(TAG, "I2C scanning...");
+    ESP_LOGI(TAG, "I2C scan");
     for (int addr = 1; addr < 128; addr++) {
         i2c_cmd_handle_t cmd = i2c_cmd_link_create();
         i2c_master_start(cmd);
@@ -66,10 +66,10 @@ static void i2c_scan(void)
         esp_err_t ret = i2c_master_cmd_begin(I2C_MASTER_NUM, cmd, pdMS_TO_TICKS(50));
         i2c_cmd_link_delete(cmd);
         if (ret == ESP_OK) {
-            ESP_LOGI(TAG, "I2C device found at 0x%02X", addr);
+            ESP_LOGI(TAG, "I2C encontrado no 0x%02X", addr);
         }
     }
-    ESP_LOGI(TAG, "I2C scan done");
+    ESP_LOGI(TAG, "I2C scan completo");
 }
 
 static void buzzer_init(void)
@@ -146,12 +146,12 @@ static esp_err_t mount_sdcard(void)
     sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
     esp_err_t ret = esp_vfs_fat_sdmmc_mount("/sdcard", &host, &slot_config, &mount_config, &sd_card);
     if (ret != ESP_OK) {
-        ESP_LOGW(TAG, "Failed to mount SD card (%d)", ret);
+        ESP_LOGW(TAG, "Falha em montar o SD card (%d)", ret);
         sd_mounted = false;
         return ret;
     }
     sd_mounted = true;
-    ESP_LOGI(TAG, "SD card mounted at /sdcard");
+    ESP_LOGI(TAG, "SD card montado em /sdcard");
     return ESP_OK;
 }
 
@@ -159,7 +159,7 @@ static int save_and_get_highscore(const char *filename, int score)
 {
     if (mount_sdcard() != ESP_OK) {
         ESP_LOGW(TAG, "SD not mounted, cannot save score");
-        return score; // still return current score as fallback
+        return score; 
     }
 
     char path[128];
@@ -178,7 +178,7 @@ static int save_and_get_highscore(const char *filename, int score)
             fprintf(fw, "%d\n", best);
             fclose(fw);
         } else {
-            ESP_LOGW(TAG, "Failed to open %s for writing", path);
+            ESP_LOGW(TAG, "Falha em %s pra escrever", path);
         }
     }
     return best;
@@ -219,7 +219,6 @@ static int accel_to_pixel_x(float raw_ax, int prev_px)
     return (int)(smoothed + 0.5f);
 }
 
-/* --- Menu drawing --- */
 static void draw_menu(ssd1306_handle_t display, int sel)
 {
     const char *items[4] = {
@@ -254,8 +253,8 @@ static int game_dodge(ssd1306_handle_t display, mpu6050_handle_t mpu, QueueHandl
     int score = 0;
 
     ssd1306_clear_screen(display, 0x00);
-    ssd1306_draw_string(display, 0, 0, (const uint8_t *)"DODGE - tilt to move", 12, 1);
-    ssd1306_draw_string(display, 0, 12, (const uint8_t *)"SEL->back", 12, 1);
+    ssd1306_draw_string(display, 0, 0, (const uint8_t *)"DODGE - Incline para mover", 12, 1);
+    ssd1306_draw_string(display, 0, 12, (const uint8_t *)"SEL->Menu", 12, 1);
     ssd1306_refresh_gram(display);
     vTaskDelay(pdMS_TO_TICKS(500));
 
@@ -458,7 +457,7 @@ static int run_maze_level(ssd1306_handle_t display, mpu6050_handle_t mpu, QueueH
 
     while (1) {
         if (xQueueReceive(q, &evt, 0) == pdTRUE) {
-            if (evt == BTN_EVENT_SELECT) { buzzer_beep(50); return 0; } // Quit
+            if (evt == BTN_EVENT_SELECT) { buzzer_beep(50); return 0; } 
         }
 
         if (mpu6050_get_acce(mpu, &ac) == ESP_OK) {
@@ -495,7 +494,7 @@ static int run_maze_level(ssd1306_handle_t display, mpu6050_handle_t mpu, QueueH
         if (cur_r < 0) cur_r = 0;
         if (cur_r >= MAZE_ROWS) cur_r = MAZE_ROWS - 1;
 
-        if (maze[cur_r][cur_c] == 3) { // Collected Key
+        if (maze[cur_r][cur_c] == 3) {
             maze[cur_r][cur_c] = 0;
             door_open = true;
             buzzer_beep(120);
@@ -605,7 +604,7 @@ static int game_snake_tilt(ssd1306_handle_t display, mpu6050_handle_t mpu, Queue
     int grow_pending = 0;
 
     ssd1306_clear_screen(display, 0x00);
-    ssd1306_draw_string(display, 0, 0, (const uint8_t *)"SNAKE - Infinity!", 12, 1);
+    ssd1306_draw_string(display, 0, 0, (const uint8_t *)"SNAKE TILT!", 12, 1);
     vTaskDelay(pdMS_TO_TICKS(1000));
 
     while (1) {
@@ -710,7 +709,7 @@ static int game_paddle_pong(ssd1306_handle_t display, mpu6050_handle_t mpu, Queu
     const int ui_top_pong = 16;
 
     ssd1306_clear_screen(display, 0x00);
-    ssd1306_draw_string(display, 0, 0, (const uint8_t *)"PONG - tilt to move", 12, 1);
+    ssd1306_draw_string(display, 0, 0, (const uint8_t *)"PONG - Incline para mover", 12, 1);
     vTaskDelay(pdMS_TO_TICKS(1000));
 
     while (1) {
@@ -781,16 +780,15 @@ void app_main(void)
     buttons_init();
 
     ssd1306_handle_t display = ssd1306_create(I2C_MASTER_NUM, SSD1306_ADDR);
-    if (!display) { ESP_LOGE(TAG, "Failed to create SSD1306 handle"); return; }
-    ssd1306_init(display);
+    if (!display) { ESP_LOGE(TAG, "Falha no Display"); return; }
+    ssd1306_init(display); 
     ssd1306_clear_screen(display, 0x00);
     ssd1306_draw_string(display, 0, 0, (const uint8_t *)"Game System", 16, 1);
-    ssd1306_draw_string(display, 0, 16, (const uint8_t *)"Press Next to start", 12, 1);
     ssd1306_refresh_gram(display);
     vTaskDelay(pdMS_TO_TICKS(500));
 
     mpu6050_handle_t mpu = mpu6050_create(I2C_MASTER_NUM, MPU6050_ADDR);
-    if (!mpu) { ESP_LOGE(TAG, "Failed to create MPU6050 handle"); return; }
+    if (!mpu) { ESP_LOGE(TAG, "Falha no MPU6050"); return; }
     mpu6050_wake_up(mpu);
     vTaskDelay(pdMS_TO_TICKS(50));
     ESP_ERROR_CHECK(mpu6050_config(mpu, ACCE_FS_2G, GYRO_FS_250DPS));
@@ -830,7 +828,7 @@ void app_main(void)
                         score = game_dodge(display, mpu, btn_evt_queue); 
                         fname = "dodge.score"; title = "Dodge"; 
                         break;
-                    case 1: { // Tilt Maze game with level progression
+                    case 1: { 
                         title = "Tilt Maze";
                         fname = "tiltmaze.score";
                         int total_score = 0;
@@ -838,7 +836,7 @@ void app_main(void)
                             int level_score = run_maze_level(display, mpu, btn_evt_queue, &maze_levels[i], i + 1);
                             if (level_score > 0) {
                                 total_score += level_score;
-                            } else { // Player quit mid-game
+                            } else {
                                 break;
                             }
                         }
