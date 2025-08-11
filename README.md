@@ -46,25 +46,25 @@ Projeto de sistema embarcado que integra múltiplos periféricos para criar uma 
 
 ## 📐 Diagrama de Blocos
 
-![Diagrama de Blocos](/Diagrama_de_Blocos.pdf)
+[Diagrama de Blocos](/Diagrama_Blocos.png)
 
 ---
 
 ## 📝 Diagrama Esquemático
 
-![Diagrama Esquemático](/Diagrama_Esquematico.pdf)
+[Diagrama Esquemático](/Diagrama_Esquematico.pdf)
 
 ---
 
 ## 🛠️ Layout de Montagem (Protoboard)
 
-![Layout Físico](/path/to/layout_fisico.png)
+[Layout Físico](/Layout_de_Montagem.png)
 
 ---
 
-## 🔄 Fluxo de Execução
+## 🔄 Apresentação do Projeto
 
-![Fluxograma](/path/to/fluxo_maquina_estados.png)
+[Apresentação](/Apresentação.mp4)
 
 ---
 
