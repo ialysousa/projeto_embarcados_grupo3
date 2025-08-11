@@ -1,26 +1,32 @@
 ## Bibliotecas necessárias
 
-### 1. Comunicação I²C (MPU6050 e SSD1306)
-- **driver/i2c.h**  
-- **esp_log.h**  
+### Bibliotecas Padrão da Linguagem C
+* `stdio.h`
+* `string.h`
+* `stdlib.h`
+* `math.h`
+* `stdbool.h`
 
-### 2. Comunicação SPI e SD-Card
-- **driver/spi_master.h**  
-- **sdmmc_cmd.h** _ou_ **driver/sdspi_host.h**  
-- **esp_vfs_fat.h**  
+### Bibliotecas do FreeRTOS
 
-### 3. Controle de GPIO (Botões e Buzzer)
-- **driver/gpio.h**  
-- **driver/ledc.h**  
+* `freertos/FreeRTOS.h`
+* `freertos/task.h`
+* `freertos/queue.h`
 
-### 4. Multithreading e Sincronização (FreeRTOS)
-- **freertos/FreeRTOS.h**  
-- **freertos/task.h**  
-- **freertos/queue.h**  
-- **freertos/semphr.h**  
+### Bibliotecas de Drivers do ESP-IDF
 
-### 5. Utilitários e Logging
-- **esp_system.h**  
-- **esp_err.h**  
-- **esp_log.h**  
-- **esp_timer.h**  
+* `driver/i2c.h`
+* `driver/gpio.h`
+* `driver/ledc.h`
+* `driver/sdmmc_host.h`
+
+### Bibliotecas de Sistema e Componentes do ESP-IDF
+
+* `esp_log.h`
+* `esp_vfs_fat.h`
+* `sdmmc_cmd.h`
+
+### Bibliotecas de Componentes Personalizados
+
+* `mpu6050.h`
+* `ssd1306.h`
